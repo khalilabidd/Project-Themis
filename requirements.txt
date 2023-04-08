@@ -1,4 +1,2 @@
 discord
-responses
 pandas
-itertools

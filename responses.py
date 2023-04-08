@@ -1,7 +1,12 @@
-def handle_response(message) -> str:
-    p_message = message
-    if p_message == 'Hey Themis!':
-        return "Hey there everyone, I'm Themis and my mission is to ensure justice, divine order, fairness and law."
-    if p_message.lower() == 'test':
-        return 'Works'
+import pandas as pd
+from settings import RESPONSES_URL
+from random import randint
+
+def handle_response(ref,default_response=''):
+    df = pd.read_csv(RESPONSES_URL)
+    df = df[df['Reference']==ref]
+    df = df.fillna('')
+    if len(df) and (message := df['Message'].iloc[randint(0,len(df)-1)]):
+        return message
+    return default_response
         
